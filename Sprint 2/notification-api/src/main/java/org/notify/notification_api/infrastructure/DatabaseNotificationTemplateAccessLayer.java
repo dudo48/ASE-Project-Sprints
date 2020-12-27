@@ -15,16 +15,20 @@ import org.notify.notification_api.model.NotificationTemplate;
 public class DatabaseNotificationTemplateAccessLayer
 							implements INotificationTemplateDataAccessLayer{
 	Connection conn = null;
+	int maxID;
 	public DatabaseNotificationTemplateAccessLayer() {
 		try {// to connect to the database .
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "123456");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		this.maxID = 0;
 	}
 	
 	@Override
 	public boolean AddTemplate(NotificationTemplate template) {
+		 template.setId(maxID + 1);
+		 this.maxID ++;
 		 String INSERT_NOTIFICATION = "INSERT INTO templates" + " (content, temp_id, subject, language) VALUES " +
 			        " (?, ?, ?, ?);" ; 
 		 try {

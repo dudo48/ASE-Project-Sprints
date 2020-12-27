@@ -34,7 +34,7 @@ public class NotificationFilesService implements NotificationService{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Override
 	public Response addTemplate(NotificationTemplate t) { // create
-		t.setId(((FilesNotificationTemplateAccessLayer) data).size());
+		t.setId(((FilesNotificationTemplateAccessLayer) data).nextId() + 1);
 		data.AddTemplate(t);
 		return new Response(true, "Added successfully");
 	}

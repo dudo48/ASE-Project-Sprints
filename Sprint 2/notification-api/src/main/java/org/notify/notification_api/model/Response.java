@@ -1,9 +1,14 @@
 package org.notify.notification_api.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Response {
 	private boolean state;
 	private String message;
-	
+	public Response() {
+		
+	}
 	public Response(boolean state, String message) {
 		this.state = state;
 		this.message = message;

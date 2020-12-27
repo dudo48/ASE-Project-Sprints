@@ -111,7 +111,13 @@ public class FilesNotificationTemplateAccessLayer
 		return temp;
 	}
 
-	
+	public int nextId() {
+		int mx = -1;
+		for(int i = 0; i < templates.size(); i++) {
+			mx = Math.max(mx, templates.get(i).getId());
+		}
+		return mx;
+	}
 	@Override
 	public ArrayList<NotificationTemplate> searchTemplate() {
 		return this.readFromFile();
