@@ -18,9 +18,9 @@ private IGateWay gateway;
         this.sendingWay = sendingWay;
 
     }
-   public Notification makeNotification(Templete temp){
+   public Notification makeNotification(Templete temp,int maxID){
         String finalContent=makeNotificationContent(this.placeHolders,temp);
-        Notification n = new Notification(notificationCounter++,finalContent,sendingWay,temp.getSubject());
+        Notification n = new Notification(++maxID,finalContent,sendingWay,temp.getSubject());
         if(  Character.isDigit(n.getReciver().charAt(0)) )// to check if it is a mail or sms
             gateway= new SmsGateWay();
 
@@ -34,8 +34,8 @@ private IGateWay gateway;
 
 // this should be for loop for the size of the arraylist but replacefirst does not work because of regix and literal
        /*for(int i=0;i<placeHolders.size();i++)
-           content=content.replaceFirst("{x}",placeHolders.get(0));
-   */   String content= template.getContent();
+           content=content.replaceFirst("{x}",placeHolders.get(0));*/
+       String content= template.getContent();
         content=content.replace("{x}",placeHolders.get(0));
    if(template.getId()==2018||template.getId()==2019)
         content=content.replace("{y}",placeHolders.get(1));

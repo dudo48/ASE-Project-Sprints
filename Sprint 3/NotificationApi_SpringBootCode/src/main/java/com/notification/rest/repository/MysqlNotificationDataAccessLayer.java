@@ -64,8 +64,8 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (Notification n:notifications)
-            System.out.println(n.toString()+"\n");
+//        for (Notification n:notifications)
+//            System.out.println(n.toString()+"\n");
         return notifications;
     }
 
@@ -86,8 +86,8 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (Notification n:notifications)
-            System.out.println(n.toString()+"\n");
+//        for (Notification n:notifications)
+//            System.out.println(n.toString()+"\n");
         return notifications;
     }
 
@@ -103,6 +103,7 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
             while (rs.next()) {
                 Notification temp = new Notification(rs.getInt("notificationID"),rs.getString("finalContent"),
                         rs.getString("receiver") , rs.getString("subject"));
+                temp.setStatus(rs.getBoolean("status"));
                 notifications.add(temp);
 
             }
@@ -110,9 +111,46 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (Notification n:notifications)
-            System.out.println(n.toString()+"\n");
+//        for (Notification n:notifications)
+//            System.out.println(n.toString()+"\n");
         return notifications;
 
+    }
+
+    @Override
+    public boolean deleteTemplate(int notificationID) {
+        String DELETE_NOTIFICATION = "delete from notification where notificationID = ?;";
+
+        try {
+            PreparedStatement preparedStatment = conn.prepareStatement(DELETE_NOTIFICATION);
+            preparedStatment.setInt(1, notificationID);
+
+            int x = preparedStatment.executeUpdate();
+            if (x < 1) {
+                System.out.println("this id [" + notificationID + "] is not exist \n Deletion failed");
+                return false;
+            } else
+                System.out.println("1 Notification deleted");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public int selectMaxId() {
+        String selectMax="select max(notificationID) from notification";
+        int mxID=0;
+        try {
+            Statement statment = conn.createStatement();
+            ResultSet rs = statment.executeQuery(selectMax);
+            rs.next();
+            mxID= rs.getInt(1);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return mxID;
     }
 }

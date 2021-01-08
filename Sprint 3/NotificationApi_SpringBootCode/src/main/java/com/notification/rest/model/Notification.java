@@ -37,11 +37,13 @@ public class Notification {
     @Override
     public String toString() {
         return "Notification{" +
-                "notificationID=" + notificationID +
-                ", status=" + status +
+                //"notificationID=" + notificationID +
+                //", status=" + status +
+                " subject='" + subject + '\'' +
                 ", finalContent='" + finalContent + '\'' +
                 ", receiver='" + receiver + '\'' +
-                ", subject='" + this.subject + "\' }";
+
+                '}';
     }
 
     public void setNotificationID(Integer notificationID) {
