@@ -1,50 +1,81 @@
+package com.notification.rest.service;
+
+import com.notification.rest.model.Notification;
+import com.notification.rest.repository.INotificationDataAccessLayer;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ConsoleApp {
 
-    // get input for a choice in specified range
-    public static int makeChoice(int low, int high) {
-        Scanner input = new Scanner(System.in);
-        int choice = -1;
+    private INotificationDataAccessLayer database;
 
-        System.out.println("Enter your choice number: ");
+    public ConsoleApp(INotificationDataAccessLayer database){
+        this.database = database;
+    }
+
+    // get input for a choice in specified range
+    private int makeChoice(int low, int high) {
+        Scanner input = new Scanner(System.in);
+        int choice;
+
+        System.out.print("Enter your choice number: ");
         while (true) {
 
             choice = input.nextInt();
             if ((choice >= low) && (choice <= high))
                 break;
-            System.out.println("Please enter a valid choice number: ");
+            System.out.print("Please enter a valid choice number: ");
 
         }
         return choice;
     }
 
-    public static void run(){
+    public void run() {
 
-        System.out.println("Choose your operation:\n" +
-                "(1) Add a notification\n" +
-                "(2) Read a notification");
+        while (true) {
 
-        int choice = makeChoice(1, 2);
+            System.out.println("Choose your operation:\n" +
+                    "(1) Read notifications\n" +
+                    "(2) Exit");
 
-        if(choice == 1){
-            // add
-        }
-        else if(choice == 2){
-            Scanner input = new Scanner(System.in);
+            int choice = makeChoice(1, 2);
 
-            String receiver = input.nextLine();
-            ArrayList<Notification> result = MysqlNotificationDataAccessLayer.readNotification(receiver);
+            if (choice == 1) {
+                Scanner input = new Scanner(System.in);
 
-            for(Notification notification : result){
-                System.out.println(notification);
+                System.out.print("Enter the Phone Number/Email: ");
+                String receiver = input.next();
+
+                ArrayList<Notification> notifications = database.readNotification(receiver);
+                ArrayList<Notification> successful_notifications = new ArrayList<>(); // notifications that were received successfully
+
+                for(Notification notification : notifications){
+
+                    // if notification was sent successfully
+                    if(notification.isStatus()){
+                        successful_notifications.add(notification);
+                    }
+                }
+
+                if(successful_notifications.isEmpty()){
+                    System.out.println("Sorry, there are no notifications.");
+                }
+                else{
+                    for(Notification notification : successful_notifications){
+                        System.out.println(notification);
+                    }
+                    System.out.println("Displayed " + successful_notifications.size() + " notifications.");
+                }
+
+                System.out.print("Press Enter to continue..");
+                input.nextLine();
+            }
+            if (choice == 2) {
+                break;
             }
         }
     }
 
-    public static void main(String[] args) {
-        run();
-    }
-
 }
+
