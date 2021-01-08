@@ -1,7 +1,6 @@
 package com.notification.rest.repository;
 
 import com.notification.rest.model.Templete;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.ArrayList;
 

@@ -10,9 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import com.notification.rest.model.LanguageEnum;
 import com.notification.rest.model.Templete;
-import org.springframework.stereotype.Repository;
 
-@Repository("mysql")
 public class MysqlTemplatesDataAccessLayer
         implements ITemplateDataAccessLayer {
     Connection conn = null;

@@ -1,12 +1,9 @@
 package com.notification.rest.repository;
 
 import com.notification.rest.model.Notification;
-import org.springframework.stereotype.Repository;
-
 
 import java.sql.*;
 import java.util.ArrayList;
-@Repository ("noteMysql")
 public class MysqlNotificationDataAccessLayer implements INotificationDataAccessLayer {
     Connection conn = null;
 

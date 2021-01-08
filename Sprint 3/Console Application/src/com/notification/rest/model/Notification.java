@@ -1,23 +1,12 @@
 package com.notification.rest.model;
 
-import javax.persistence.*;
 
-
-@Entity
-@Table(name = "notification")
 public class Notification {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "notificationID")
     Integer notificationID;
-    @Column(name = "status")
     boolean status;
-    @Column(name = "finalContent")
     String finalContent;
-    @Column(name = "Receiver")
     String receiver;
-    @Column (name="subject")
     String subject;
     public Notification(){ }
     public Notification(String finalContent, String receiver) {

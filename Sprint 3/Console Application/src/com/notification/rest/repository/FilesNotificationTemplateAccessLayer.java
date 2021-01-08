@@ -2,7 +2,6 @@ package com.notification.rest.repository;
 
 import com.notification.rest.model.LanguageEnum;
 import com.notification.rest.model.Templete;
-import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@Repository("files")
 public class FilesNotificationTemplateAccessLayer implements ITemplateDataAccessLayer{
     private ArrayList<Templete> templates;
     private final String FILE_NAME = "myData.txt";
