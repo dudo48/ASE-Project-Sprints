@@ -26,7 +26,7 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
             PreparedStatement preparedStatment = conn.prepareStatement(INSERT_NOTIFICATION);
             preparedStatment.setInt(1, n.getNotificationID());
             preparedStatment.setBoolean(2, n.isStatus());
-            preparedStatment.setString(3, n.getReciver());
+            preparedStatment.setString(3, n.getReceiver());
             preparedStatment.setString(4,n.getFinalContent());
             preparedStatment.setString(5,n.getSubject());
 
@@ -56,7 +56,7 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
             ResultSet rs = preparedStatment.executeQuery();
             while (rs.next()) {
                 Notification temp = new Notification(rs.getInt("notificationID"),rs.getString("finalContent"),
-                        rs.getString("receiver"),rs.getString("subject"));
+                        rs.getString("receiver"),rs.getString("subject"),rs.getBoolean("status"));
                 notifications.add(temp);
 
             }
@@ -64,8 +64,8 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        for (Notification n:notifications)
-//            System.out.println(n.toString()+"\n");
+        for (Notification n:notifications)
+            System.out.println(n.toString()+"\n");
         return notifications;
     }
 
@@ -78,7 +78,7 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
             ResultSet rs = statment.executeQuery(SELECT_ALL_NOTIFICATIONS);
             while (rs.next()) {
                 Notification temp = new Notification(rs.getInt("notificationID"),rs.getString("finalContent"),
-                        rs.getString("receiver"), rs.getString("subject"));
+                        rs.getString("receiver"), rs.getString("subject"),rs.getBoolean("status"));
                 notifications.add(temp);
 
             }
@@ -86,8 +86,8 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        for (Notification n:notifications)
-//            System.out.println(n.toString()+"\n");
+        for (Notification n:notifications)
+            System.out.println(n.toString()+"\n");
         return notifications;
     }
 
@@ -102,8 +102,7 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
             ResultSet rs = preparedStatment.executeQuery();
             while (rs.next()) {
                 Notification temp = new Notification(rs.getInt("notificationID"),rs.getString("finalContent"),
-                        rs.getString("receiver") , rs.getString("subject"));
-                temp.setStatus(rs.getBoolean("status"));
+                        rs.getString("receiver") , rs.getString("subject"),rs.getBoolean("status"));
                 notifications.add(temp);
 
             }
@@ -111,14 +110,14 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        for (Notification n:notifications)
-//            System.out.println(n.toString()+"\n");
+        for (Notification n:notifications)
+            System.out.println(n.toString()+"\n");
         return notifications;
 
     }
 
     @Override
-    public boolean deleteTemplate(int notificationID) {
+    public boolean deleteNotification(int notificationID) {
         String DELETE_NOTIFICATION = "delete from notification where notificationID = ?;";
 
         try {
@@ -153,4 +152,5 @@ public class MysqlNotificationDataAccessLayer implements INotificationDataAccess
         }
         return mxID;
     }
+
 }

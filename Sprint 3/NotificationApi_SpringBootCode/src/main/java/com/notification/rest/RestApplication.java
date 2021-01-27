@@ -10,9 +10,17 @@ public class RestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestApplication.class, args);
-
-//		INotificationDataAccessLayer test= new MysqlNotificationDataAccessLayer();
-//		test.deleteTemplate(0);
+//		INotificationDataAccessLayer database = new MysqlNotificationDataAccessLayer();
+//		ConsoleApp app = new ConsoleApp(database);
+//		app.run();
+//		InotificationDataAccessLayer test= new MysqlNotificationDataAccessLayer();
+//		ArrayList<String> placeholders= new ArrayList<String>();
+//		placeholders.add("Mohamed");
+//		placeholders.add("book");
+//		test.readAll();
+		//NotificationReqeust x= new NotificationReqeust(placeholders,2018,"ma@gmail.com");
+//		Notification n1= new Notification(2022,2023,true,null,"ma@gmail.com");
+//		test.sendNotification(n1);
 
 	}
 

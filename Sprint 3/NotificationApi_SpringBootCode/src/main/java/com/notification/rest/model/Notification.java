@@ -26,24 +26,27 @@ public class Notification {
         this.finalContent = finalContent;
         this.receiver = receiver;
     }
-    public Notification(Integer notificationID, String finalContent, String receiver ,String subject) {
+    public Notification(Integer notificationID, String finalContent, String receiver ,String subject,boolean status) {
         this.notificationID = notificationID;
-        this.status = false;
+        this.status = status;
         this.finalContent = finalContent;
         this.receiver = receiver;
         this.subject=subject;
     }
-
+    public Notification(Integer notificationID, String finalContent, String receiver ,String subject) {
+        this.notificationID = notificationID;
+        this.finalContent = finalContent;
+        this.receiver = receiver;
+        this.subject=subject;
+    }
     @Override
     public String toString() {
         return "Notification{" +
                 //"notificationID=" + notificationID +
                 //", status=" + status +
-                " subject='" + subject + '\'' +
                 ", finalContent='" + finalContent + '\'' +
                 ", receiver='" + receiver + '\'' +
-
-                '}';
+                ", subject='" + this.subject + "\' }";
     }
 
     public void setNotificationID(Integer notificationID) {
@@ -79,9 +82,7 @@ public class Notification {
 
     public void setFinalContent(String finalContent) { this.finalContent = finalContent; }
 
-    public String getReciver() { return receiver; }
 
-    public void setReciver(String reciver) { this.receiver = reciver; }
 
 
 }

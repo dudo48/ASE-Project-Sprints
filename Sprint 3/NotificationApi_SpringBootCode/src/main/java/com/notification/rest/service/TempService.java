@@ -45,9 +45,8 @@ public class TempService {
 //        if(req.getTemplateID()!=null)
 //            return false;
         Templete template= database.getTemplate(req.getTemplateID());
-        int mxID=notificationDatabase.selectMaxId();
-        //System.out.println("\n\n mx id \n\n");
-        Notification n = req.makeNotification(template,mxID);
+        int id =notificationDatabase.selectMaxId();
+        Notification n = req.makeNotification(template,id+1);
 
         notificationDatabase.sendNotification(n);
         return  true;
